@@ -2,7 +2,7 @@ import type { ReviewItem, ReviewStatus, ReviewStatusId } from '../types'
 
 /**
  * Requests go to a relative /api path; the Vite dev server proxies them to the
- * Kotlin backend (see vite.config.ts), so there is no CORS setup to worry about.
+ * Node backend (see vite.config.ts), so there is no CORS setup to worry about.
  */
 
 export class ApiError extends Error {

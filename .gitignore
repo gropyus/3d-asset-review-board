@@ -28,12 +28,8 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# --- Maven / JVM (backend) ---
-target/
-*.class
-hs_err_pid*
-replay_pid*
-.mvn/wrapper/maven-wrapper.jar
+# --- Node (backend build output) ---
+backend/dist/
 
 # --- Logs ---
 *.log

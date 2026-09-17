@@ -1,6 +1,6 @@
 # 3D Asset Review Board
 
-A React and Three.js frontend against a Kotlin backend: a board for reviewing
+A React and Three.js frontend against a Node backend: a board for reviewing
 simple 3D assets before they are published. A team checks each asset before it
 goes live, and every item moves through three stages:
 
@@ -27,12 +27,13 @@ Your edits under `frontend/` hot-reload inside the container.
 
 ### Option B — run natively
 
-Requires **JDK 21+** and **Node 20.19+** (or 22.12+).
+Requires **Node 20.19+** (or 22.12+).
 
 ```bash
 # terminal 1 — backend
 cd backend
-./mvnw spring-boot:run
+npm install
+npm run dev
 
 # terminal 2 — frontend
 cd frontend
@@ -123,6 +124,7 @@ metres.
 | `box` | `width`, `height`, `depth` |
 | `sphere` | `radius` |
 | `cylinder` | `radiusTop`, `radiusBottom`, `height` |
+| `cone` | `radius`, `height` |
 
 All geometries also carry a `color` (hex string).
 

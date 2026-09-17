@@ -1,24 +1,27 @@
 # ---- build ----
-FROM eclipse-temurin:21-jdk AS build
+FROM node:22-alpine AS build
 WORKDIR /app
 
-# Copy the wrapper and POM first so dependency resolution is cached across
+# Copy the manifests first so dependency installation is cached across
 # source changes.
-COPY .mvn/ .mvn/
-COPY mvnw pom.xml ./
-RUN chmod +x mvnw && ./mvnw -B -q dependency:go-offline
+COPY package.json package-lock.json* ./
+RUN npm ci
 
+COPY tsconfig.json ./
 COPY src ./src
-RUN ./mvnw -B -q clean package -DskipTests
+RUN npm run build && npm prune --omit=dev
 
 # ---- run ----
-FROM eclipse-temurin:21-jre
+FROM node:22-alpine
 WORKDIR /app
+ENV NODE_ENV=production
+
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/dist ./dist
+COPY package.json ./
 
 # Run as an unprivileged user rather than root.
-RUN useradd --system --uid 10001 --create-home appuser
-COPY --from=build /app/target/review-api-1.0.0.jar app.jar
-USER appuser
+USER node
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+CMD ["node", "dist/server.js"]
