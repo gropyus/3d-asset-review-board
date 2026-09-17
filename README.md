@@ -7,7 +7,7 @@ goes live, and every item moves through three stages:
 **To review → In review → Approved**
 
 This file covers setup, the project layout and the API. Tickets are tracked on
-the [project board](https://trello.com/b/ddHAnvyV/3d-asset-review-board).
+a Trello project board.
 
 ---
 
